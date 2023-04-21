@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { incNum, decNum,mulNum } from './actions/index';
+import Text from './component/text';
+import ApiData from './data/Apidata'
 
-function App() {
+const App = () => {
+  
+  const myState = useSelector((state) => state.changeTheNumber);
+  const myApi = useSelector((state) => state.changeTheApi);
+  const dispatch = useDispatch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      
+    <ApiData/>
+    <div style={{
+      
+      display: 'flex',
+      justifyContent: 'center', 
+      alignItems: 'center'
+      }}>
+        <Text/>
+      <button onClick={()=> dispatch(mulNum(2))}>-</button>
+      <input type="text" value={myState} />
+      <button onClick={() => dispatch(incNum(4))}>+</button>
+      </div>
+      <h1 style={{fontSize: '20px' , margin: 'auto'}}>{myApi.description}</h1>
+    </>
+  )
 }
 
-export default App;
+export default App
